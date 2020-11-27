@@ -1,0 +1,102 @@
+<!-- Metody uslugi sieciowej BIR1.1 -->
+
+<!-- Zaloguj ------------------------------------------------------------->
+
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://CIS/BIR/PUBL/2014/07">
+<soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+	<wsa:To>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc</wsa:To>
+	<wsa:Action>http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Zaloguj</wsa:Action>
+</soap:Header>
+<soap:Body>
+	<ns:Zaloguj>
+		<ns:pKluczUzytkownika>theUsersKey</ns:pKluczUzytkownika>
+	</ns:Zaloguj>
+</soap:Body>
+</soap:Envelope>
+
+<!-- DaneSzukajPodmioty ------------------------------------------------------------->
+
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://CIS/BIR/PUBL/2014/07" xmlns:dat="http://CIS/BIR/PUBL/2014/07/DataContract">
+<soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+	<wsa:To>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc</wsa:To>
+	<wsa:Action>http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DaneSzukajPodmioty</wsa:Action>
+</soap:Header>
+<soap:Body>
+	<ns:DaneSzukajPodmioty>
+		<ns:pParametryWyszukiwania>
+			<!--Optional:-->
+			<dat:Regon>000331501</dat:Regon>
+			<!--Optional:-->
+			<dat:Nip></dat:Nip>
+			<!--Optional:-->
+			<dat:Krs></dat:Krs>
+			<!--Optional:-->
+			<dat:Nipy></dat:Nipy>
+			<!--Optional:-->
+			<dat:Regony9zn></dat:Regony9zn>
+			<!--Optional:-->
+			<dat:Krsy></dat:Krsy>
+			<!--Optional:-->
+			<dat:Regony14zn></dat:Regony14zn>
+		</ns:pParametryWyszukiwania>
+	</ns:DaneSzukajPodmioty>
+</soap:Body>
+</soap:Envelope>
+
+<!-- DanePobierzPelnyRaport ------------------------------------------------------------->
+
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://CIS/BIR/PUBL/2014/07">
+<soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+	<wsa:To>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc</wsa:To>
+	<wsa:Action>http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DanePobierzPelnyRaport</wsa:Action>
+</soap:Header>
+<soap:Body>
+	<ns:DanePobierzPelnyRaport>
+		<ns:pRegon>000331501</ns:pRegon>
+		<ns:pNazwaRaportu>BIR11OsPrawna</ns:pNazwaRaportu>
+	</ns:DanePobierzPelnyRaport>
+</soap:Body>
+</soap:Envelope>
+
+<!-- DanePobierzRaportZbiorczy ------------------------------------------------------------->
+
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://CIS/BIR/PUBL/2014/07">
+<soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+	<wsa:To>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc</wsa:To>
+	<wsa:Action>http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/DanePobierzRaportZbiorczy</wsa:Action>
+</soap:Header>
+<soap:Body>
+	<ns:DanePobierzRaportZbiorczy>
+		<ns:pDataRaportu>2014-11-07</ns:pDataRaportu>
+		<ns:pNazwaRaportu> BIR11NowePodmiotyPrawneOrazDzialalnosciOsFizycznych</ns:pNazwaRaportu>
+	</ns:DanePobierzRaportZbiorczy>
+</soap:Body>
+</soap:Envelope>
+
+<!-- GetValue ------------------------------------------------------------->
+
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://CIS/BIR/2014/07">
+<soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+	<wsa:To>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc</wsa:To>
+	<wsa:Action>http://CIS/BIR/2014/07/IUslugaBIR/GetValue</wsa:Action>
+</soap:Header>
+<soap:Body>
+	<ns:GetValue>
+		<ns:pNazwaParametru>StatusSesji</ns:pNazwaParametru>
+	</ns:GetValue>
+</soap:Body>
+</soap:Envelope>
+
+<!-- Wyloguj ------------------------------------------------------------->
+
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ns="http://CIS/BIR/PUBL/2014/07">
+<soap:Header xmlns:wsa="http://www.w3.org/2005/08/addressing">
+	<wsa:To>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/UslugaBIRzewnPubl.svc</wsa:To>
+	<wsa:Action>http://CIS/BIR/PUBL/2014/07/IUslugaBIRzewnPubl/Wyloguj</wsa:Action>
+</soap:Header>
+<soap:Body>
+	<ns:Wyloguj>
+		<ns:pIdentyfikatorSesji>xxxxxxxxxxxxxxxxxxxx</ns:pIdentyfikatorSesji>
+	</ns:Wyloguj>
+</soap:Body>
+</soap:Envelope>

@@ -1,0 +1,10 @@
+# binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# configs
+.vscode
+.env
