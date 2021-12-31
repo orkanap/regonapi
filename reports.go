@@ -219,3 +219,41 @@ func (c *Client) LegalPersonPKDList(regon string) ([]LegalPersonPKD, error) {
 
 	return res.Rep, nil
 }
+
+// LegalPersonLocalUnitPKD holds information of PKD (classification of business
+// activity) for local unit of legal person (type LP). Local units are
+// identified by REGON14 (14 digits).
+type LegalPersonLocalUnitPKD struct {
+	ErrorCode int    `xml:"ErrorCode"`
+	Code      string `xml:"lokpraw_pkdKod"`
+	Name      string `xml:"lokpraw_pkdNazwa"`
+	Primary   string `xml:"lokpraw_pkdPrzewazajace"`
+}
+
+// LegalPersonLocalUnitPKDList returns list of PKD for legal person or nil and
+// error. Entity is identified by REGON14.
+func (c *Client) LegalPersonLocalUnitPKDList(regon14 string) ([]LegalPersonLocalUnitPKD, error) {
+	rap, err := c.report(regon14, "BIR11JednLokalnaOsPrawnejPkd")
+	if err != nil {
+		return nil, err
+	}
+
+	var res struct {
+		XMLName struct{}                  `xml:"root"`
+		Rep     []LegalPersonLocalUnitPKD `xml:"dane"`
+	}
+
+	err = xml.Unmarshal([]byte(rap), &res)
+	if err != nil {
+		return nil, err
+	}
+	if len(res.Rep) > 0 && res.Rep[0].ErrorCode > 0 {
+		errorCode := res.Rep[0].ErrorCode
+		if errorCode == 4 {
+			return nil, ErrNoDataFound
+		}
+		return nil, fmt.Errorf("report error %d", errorCode)
+	}
+
+	return res.Rep, nil
+}

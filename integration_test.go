@@ -1,3 +1,4 @@
+//go:build integration
 // +build integration
 
 package regonapi_test
@@ -145,6 +146,10 @@ func TestRepLegalPersonDetails(t *testing.T) {
 	_, err = regonsvc.LegalPersonDetails("123456789")
 	is.True(err == regonapi.ErrNoDataFound)
 
+	// entity exists but not a legal person
+	_, err = regonsvc.LegalPersonDetails("092343955")
+	is.True(err == regonapi.ErrNoDataFound)
+
 	err = regonsvc.Logout()
 	is.NoErr(err)
 }
@@ -167,10 +172,34 @@ func TestRepLegalPersonPKDList(t *testing.T) {
 
 	// entity exists but not a natural person
 	//
-	// NO ERR! This is different than NaturalPersonDetails("092343955") where
+	// NO ERR! This is different than LegalPersonDetails("092343955") where
 	// ErrNoDataFound is returned.
 	pkds, err = regonsvc.LegalPersonPKDList("092343955")
 	is.NoErr(err)
+
+	err = regonsvc.Logout()
+	is.NoErr(err)
+}
+
+func TestRepLegalPersonLocalUnitPKDList(t *testing.T) {
+	is := is.New(t)
+
+	regonsvc := regonapi.NewClient(context.Background(), "")
+	err := regonsvc.Login()
+	is.NoErr(err)
+
+	regon14 := "00701591510752"
+
+	// entity of type LP, local unit of legal person
+	localUnits, err := regonsvc.SearchByREGON(regon14)
+	is.NoErr(err)
+	is.True(len(localUnits) > 0)
+	is.True(localUnits[0].Type == "LP")
+
+	// PKDs for local unit
+	pkds, err := regonsvc.LegalPersonLocalUnitPKDList(regon14)
+	is.NoErr(err)
+	is.True(len(pkds) > 0)
 
 	err = regonsvc.Logout()
 	is.NoErr(err)

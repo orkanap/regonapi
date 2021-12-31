@@ -36,8 +36,8 @@ func main() {
 		listEntities(entities)
 	}
 
-	// Search by REGON
-	regons := []string{"123456789", "000331501"}
+	// Search by REGON. Valid REGON is 9 or 14 digits number.
+	regons := []string{"123456789", "000331501", "00701591510752"}
 	for _, regon := range regons {
 		entities, err := regonsvc.SearchByREGON(regon)
 		if err != nil {
